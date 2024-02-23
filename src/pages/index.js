@@ -58,6 +58,27 @@ export default function Home() {
     // 現在の日時
     const today = new Date();
 
+    // 曜日によって電車の時刻表を変更
+    let yama_taka, yama_oya, ashi_ise, ashi_tate;
+    if (today.getDay() == 0) {
+      yama_taka = sun_yama_taka_schedule;
+      yama_oya = sun_yama_oya_schedule;
+      ashi_ise = sun_ashi_ise_schedule;
+      ashi_tate = sun_ashi_tate_schedule;
+    }
+    else if (today.getDay() == 6) {
+      yama_taka = sat_yama_taka_schedule;
+      yama_oya = sat_yama_oya_schedule;
+      ashi_ise = sat_ashi_ise_schedule;
+      ashi_tate = sat_ashi_tate_schedule;
+    }
+    else {
+      yama_taka = yama_taka_schedule;
+      yama_oya = yama_oya_schedule;
+      ashi_ise = ashi_ise_schedule;
+      ashi_tate = ashi_tate_schedule;
+    }
+
     // 次のバスまでの時間を計算
     const nextBusTime = busSchedule.find(busTime => {
       const [busHour, busMinute] = busTime.split(':').map(Number);
@@ -78,30 +99,70 @@ export default function Home() {
     }
 
     // 次の電車までの時間を計算
-    const nextTrainTime = trainSchedule.find(trainTime => {
-      const [trainHour, trainMinute] = trainTime.split(':').map(Number);
-      const trainDate = new Date();
-      trainDate.setHours(trainHour, trainMinute, 0, 0);
-      return trainDate > time;
-    });
-    let traintimeDifference = '本日の電車の運行は終了しました。';
-    if (nextTrainTime) {
-      const [trainHour, trainMinute] = nextTrainTime.split(':').map(Number);
-      const nextTrainDate = new Date();
-      nextTrainDate.setHours(trainHour, trainMinute, 0, 0);
-      const diffSeconds = Math.round((nextTrainDate - time) / 1000);
-      const hours = Math.floor(diffSeconds / 3600);
-      const minutes = Math.floor((diffSeconds % 3600) / 60);
-      const seconds = diffSeconds % 60;
-      traintimeDifference = `次の電車まで ${hours}時間${minutes}分${seconds}秒`;
+    function NextTrainTime(Schedule, time) {
+      const nextTime = Schedule.find(Time => {
+        const [Hour, Minute] = Time.split(':').map(Number);
+        const currentDate = new Date();
+        currentDate.setHours(Hour, Minute, 0, 0);
+        return currentDate > time;
+      });
+    
+      let timeDiff = '本日の電車の運行は終了しました。';
+    
+      if (nextTime) {
+        const [Hour, Minute] = nextTime.split(':').map(Number);
+        const nextDate = new Date();
+        nextDate.setHours(Hour, Minute, 0, 0);
+        const diffSeconds = Math.round((nextDate - time) / 1000);
+        const hours = Math.floor(diffSeconds / 3600);
+        const minutes = Math.floor((diffSeconds % 3600) / 60);
+        const seconds = diffSeconds % 60;
+        if (hours == 0) {
+          timeDiff = `${minutes}分${seconds}秒`;
+        }
+        else {
+          timeDiff = `${hours}時間${minutes}分${seconds}秒`;
+        }
+      }
+      return timeDiff;
     }
+
+    const yama_taka_diff = NextTrainTime(yama_taka, time);
+    const yama_oya_diff = NextTrainTime(yama_oya, time);
+    const ashi_ise_diff = NextTrainTime(ashi_ise, time);
+    const ashi_tate_diff = NextTrainTime(ashi_tate, time);
+
+    // 次の電車の時刻表を取得
+    function NextArrivalTime(schedule, time) {
+      const nextTime = schedule.find(trainTime => {
+        const [hour, minute] = trainTime.split(':').map(Number);
+        const currentDate = new Date();
+        currentDate.setHours(hour, minute, 0, 0);
+        return currentDate > time;
+      });
+    
+      if (nextTime) {
+        return `${nextTime}`;
+      } else {
+        return '本日の電車の運行は終了しました。';
+      }
+    }
+
+    const yama_taka_time= NextArrivalTime(yama_taka, time);
+    const yama_oya_time= NextArrivalTime(yama_oya, time);
+    const ashi_ise_time= NextArrivalTime(ashi_ise, time);
+    const ashi_tate_time= NextArrivalTime(ashi_tate, time);
 
     return (
       <div>
         <h2>{today.getFullYear()}年{today.getMonth()+1}月{today.getDate()}日{days[today.getDay()]}曜日</h2>
         <h2>{time.toLocaleTimeString()}</h2>
-        <h2>{bustimeDifference}</h2>
-        <h2>{traintimeDifference}</h2>
+        <h2>山前駅発</h2>
+        <h3>高崎・桐生方面：次の電車は{yama_taka_time}({yama_taka_diff}後発)</h3>
+        <h3>小山・足利方面：次の電車は{yama_oya_time}({yama_oya_diff}後発)</h3>
+        <h2>足利市駅発</h2>
+        <h3>伊勢崎・太田方面：次の電車は{ashi_ise_time}({ashi_ise_diff}後発)</h3>
+        <h3>館林・浅草方面：次の電車は{ashi_tate_time}({ashi_tate_diff}後発)</h3>
       </div>
     );
   };
