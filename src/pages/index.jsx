@@ -95,10 +95,10 @@ export default function Home() {
         const minutes = Math.floor((diffSeconds % 3600) / 60);
         const seconds = diffSeconds % 60;
         if (hours == 0) {
-          timeDiff = `${minutes}分${seconds}秒後`;
+          timeDiff = `(${minutes}分${seconds}秒後)`;
         }
         else {
-          timeDiff = `${hours}時間${minutes}分${seconds}秒後`;
+          timeDiff = `(${hours}時間${minutes}分${seconds}秒後)`;
         }
       }
       return timeDiff;
@@ -124,9 +124,9 @@ export default function Home() {
       });
     
       if (nextTime) {
-        return `${nextTime}発`;
+        return `次の便は${nextTime}発`;
       } else {
-        return '本日の運行は終了しました。';
+        return '';
       }
     }
     const au_yama_time= NextArrivalTime(au_yama_schedule, time);
@@ -142,15 +142,15 @@ export default function Home() {
     return (
       <div>
         <h2>{today.getFullYear()}/{today.getMonth()+1}/{today.getDate()}({days[today.getDay()]})  {time.toLocaleTimeString()}</h2>
-        <h3>足利大学発：次のバスは{au_ashi_time}({au_ashi_diff})</h3>
-        <h3>山前駅発：次のバスは{yama_au_time}({yama_au_diff})</h3>
-        <h3>足利市駅発：次のバスは{ashi_au_time}({ashi_au_diff})</h3>
+        <h3>足利大学発：{au_ashi_time}{au_ashi_diff}</h3>
+        <h3>山前駅発：{yama_au_time}{yama_au_diff}</h3>
+        <h3>足利市駅発：{ashi_au_time}{ashi_au_diff}</h3>
         <h2>山前駅発</h2>
-        <h3>高崎・桐生方面：次の電車は{yama_taka_time}({yama_taka_diff})</h3>
-        <h3>小山・足利方面：次の電車は{yama_oya_time}({yama_oya_diff})</h3>
+        <h3>高崎・桐生方面：{yama_taka_time}{yama_taka_diff}</h3>
+        <h3>小山・足利方面：{yama_oya_time}{yama_oya_diff}</h3>
         <h2>足利市駅発</h2>
-        <h3>伊勢崎・太田方面：次の電車は{ashi_ise_time}({ashi_ise_diff})</h3>
-        <h3>館林・浅草方面：次の電車は{ashi_tate_time}({ashi_tate_diff})</h3>
+        <h3>伊勢崎・太田方面：{ashi_ise_time}{ashi_ise_diff}</h3>
+        <h3>館林・浅草方面：{ashi_tate_time}{ashi_tate_diff}</h3>
       </div>
     );
   };
