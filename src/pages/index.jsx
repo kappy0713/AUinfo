@@ -158,11 +158,13 @@ export default function Home() {
   return (
     <main>
       <div>
+        <header>
+          <Link href="/">あしナビ</Link>
+          <Link href="/search">シラバス検索</Link>
+          <Link href="/about">あしナビの使い方</Link>
+        </header>
         <a href="https://aug.manaba.jp/ct/home">manaba</a>
         <a href="https://aitaasv.ashitech.ac.jp/aaa_web/cl0010.aspx">AAA</a>
-        <Link href="/">ホーム</Link>
-        <Link href="/search">シラバス検索</Link>
-        <Link href="/about">AUinfoの使い方</Link>
         <Clock />
         <a href="https://www.ashitech.ac.jp/access/bus-index.html">バス時刻表</a>
       </div>
