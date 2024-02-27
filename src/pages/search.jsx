@@ -16,9 +16,11 @@ export default function Search() {
 
   return (
     <div>
-      <Link href="/">ホーム</Link>
-      <Link href="/search">シラバス検索</Link>
-      <Link href="/about">AUinfoの使い方</Link>
+      <header>
+        <Link href="/">あしナビ</Link>
+        <Link href="/search">シラバス検索</Link>
+        <Link href="/about">あしナビの使い方</Link>
+      </header>
 
       <h1>シラバス検索(2023年度版)</h1>
       <input 
