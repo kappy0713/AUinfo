@@ -32,7 +32,7 @@ export default function Search() {
       </header>
       <>
         <h1>シラバス検索(2023年度版)</h1>
-        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className='border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500'/>
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 font-sans"/>
         <button onClick={handleSearch}>検索</button>
         <ul>
           {results.map((result, index) => (
