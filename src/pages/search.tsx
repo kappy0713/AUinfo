@@ -1,11 +1,19 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import React from 'react';
 import subjects from './subjects';
 
-export default function Search() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+interface subject {
+  name: string;
+  term: string;
+  num: number;
+  year: number;
+  teacher: string;
+  group: string;
+}
 
+export default function Search() {
+  const [query, setQuery] = React.useState<string>('');
+  const [results, setResults] = React.useState<subject[]>([]);
 
   const handleSearch = () => {
     const filteredResults = subjects.filter(item =>

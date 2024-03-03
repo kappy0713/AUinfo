@@ -6,7 +6,7 @@ const days = ['日', '月', '火', '水', '木', '金', '土'];
 
 // バスの時刻表 2/5~3/15
 // 足利大学発(山前駅)
-const au_yama_schedule = ['10:25', '11:15', '11:55', '13:00', '15:25', '16:25', '17:05', '18:00'];
+// const au_yama_schedule = ['10:25', '11:15', '11:55', '13:00', '15:25', '16:25', '17:05', '18:00'];
 // 足利大学発(足利市駅)
 const au_ashi_schedule = ['10:25', '11:15', '11:55', '13:00', '15:25', '16:25', '17:05', '18:00'];
 
@@ -38,37 +38,37 @@ const sun_ashi_tate_schedule = ['05:09', '05:34', '05:52', '05:56', '06:17', '06
 
 
 export default function Home() {
+  const days = ['日', '月', '火', '水', '木', '金', '土'];
+
   const Clock = () => {
     const [time, setTime] = useState(new Date());
-  
+
     useEffect(() => {
       const timerID = setInterval(() => {
         setTime(new Date());
       }, 1000);
-  
+
       return () => {
         clearInterval(timerID);
       };
     }, []);
-    
+
     // 現在の日時
     const today = new Date();
 
     // 曜日によって電車の時刻表を変更
     let yama_taka, yama_oya, ashi_ise, ashi_tate;
-    if (today.getDay() == 0) {
+    if (today.getDay() === 0) {
       yama_taka = sun_yama_taka_schedule;
       yama_oya = sun_yama_oya_schedule;
       ashi_ise = sun_ashi_ise_schedule;
       ashi_tate = sun_ashi_tate_schedule;
-    }
-    else if (today.getDay() == 6) {
+    } else if (today.getDay() === 6) {
       yama_taka = sat_yama_taka_schedule;
       yama_oya = sat_yama_oya_schedule;
       ashi_ise = sat_ashi_ise_schedule;
       ashi_tate = sat_ashi_tate_schedule;
-    }
-    else {
+    } else {
       yama_taka = yama_taka_schedule;
       yama_oya = yama_oya_schedule;
       ashi_ise = ashi_ise_schedule;
@@ -77,34 +77,33 @@ export default function Home() {
 
     // 次のバス・電車までの時間を計算
     function NextTime(Schedule, time) {
-      const nextTime = Schedule.find(Time => {
+      const nextTime = Schedule.find((Time) => {
         const [Hour, Minute] = Time.split(':').map(Number);
         const currentDate = new Date();
         currentDate.setHours(Hour, Minute, 0, 0);
         return currentDate > time;
       });
-    
+
       let timeDiff = '本日の運行は終了しました。';
-    
+
       if (nextTime) {
         const [Hour, Minute] = nextTime.split(':').map(Number);
         const nextDate = new Date();
         nextDate.setHours(Hour, Minute, 0, 0);
-        const diffSeconds = Math.round((nextDate - time) / 1000);
+        const diffSeconds = Math.round((nextDate.getTime() - time.getTime()) / 1000);
         const hours = Math.floor(diffSeconds / 3600);
         const minutes = Math.floor((diffSeconds % 3600) / 60);
         const seconds = diffSeconds % 60;
-        if (hours == 0) {
+        if (hours === 0) {
           timeDiff = `(${minutes}分${seconds}秒後)`;
-        }
-        else {
+        } else {
           timeDiff = `(${hours}時間${minutes}分${seconds}秒後)`;
         }
       }
       return timeDiff;
     }
 
-    const au_yama_diff = NextTime(au_yama_schedule, time);
+    // const au_yama_diff = NextTime(au_yama_schedule, time);
     const au_ashi_diff = NextTime(au_ashi_schedule, time);
     const yama_au_diff = NextTime(yama_au_schedule, time);
     const ashi_au_diff = NextTime(ashi_au_schedule, time);
@@ -116,32 +115,35 @@ export default function Home() {
 
     // 次のバス・電車の時刻表を取得
     function NextArrivalTime(schedule, time) {
-      const nextTime = schedule.find(trainTime => {
+      const nextTime = schedule.find((trainTime) => {
         const [hour, minute] = trainTime.split(':').map(Number);
         const currentDate = new Date();
         currentDate.setHours(hour, minute, 0, 0);
         return currentDate > time;
       });
-    
+
       if (nextTime) {
         return `次の便は${nextTime}発`;
       } else {
         return '';
       }
     }
-    const au_yama_time= NextArrivalTime(au_yama_schedule, time);
-    const au_ashi_time= NextArrivalTime(au_ashi_schedule, time);
-    const yama_au_time= NextArrivalTime(yama_au_schedule, time);
-    const ashi_au_time= NextArrivalTime(ashi_au_schedule, time);
+    // const au_yama_time = NextArrivalTime(au_yama_schedule, time);
+    const au_ashi_time = NextArrivalTime(au_ashi_schedule, time);
+    const yama_au_time = NextArrivalTime(yama_au_schedule, time);
+    const ashi_au_time = NextArrivalTime(ashi_au_schedule, time);
 
-    const yama_taka_time= NextArrivalTime(yama_taka, time);
-    const yama_oya_time= NextArrivalTime(yama_oya, time);
-    const ashi_ise_time= NextArrivalTime(ashi_ise, time);
-    const ashi_tate_time= NextArrivalTime(ashi_tate, time);
+    const yama_taka_time = NextArrivalTime(yama_taka, time);
+    const yama_oya_time = NextArrivalTime(yama_oya, time);
+    const ashi_ise_time = NextArrivalTime(ashi_ise, time);
+    const ashi_tate_time = NextArrivalTime(ashi_tate, time);
 
     return (
       <div>
-        <h2>{today.getFullYear()}/{today.getMonth()+1}/{today.getDate()}({days[today.getDay()]})  {time.toLocaleTimeString()}</h2>
+        <h2>
+          {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}(
+          {days[today.getDay()]}) {time.toLocaleTimeString()}
+        </h2>
         <h3>足利大学発：{au_ashi_time}{au_ashi_diff}</h3>
         <h3>山前駅発：{yama_au_time}{yama_au_diff}</h3>
         <h3>足利市駅発：{ashi_au_time}{ashi_au_diff}</h3>
