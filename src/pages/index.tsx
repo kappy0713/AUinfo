@@ -160,19 +160,23 @@ export default function Home() {
 
   return (
     <>
-      <header>
-        <Link href="/">あしナビ</Link>
-        <Link href="/search">シラバス検索</Link>
-        <Link href="/about">あしナビの使い方</Link>
+      <header className='bg-gray-700 text-white p-4 flex justify-between fixed top-0 w-full z-10'>
+        <div>
+          <Link href="/">あしナビ</Link>
+        </div>
+        <div>
+          <Link href="/search">シラバス検索</Link>
+          <Link href="/about">あしナビの使い方</Link>
+        </div>
       </header>
-      <>
+      <main className='flex-grow min-h-screen pb-16 pt-16'>
         <a href="https://aug.manaba.jp/ct/home">manaba</a>
         <a href="https://aitaasv.ashitech.ac.jp/aaa_web/cl0010.aspx">AAA</a>
         <Clock />
         <a href="https://www.ashitech.ac.jp/access/bus-index.html">バス時刻表</a>
-      </>
+      </main>
       <footer>
-        <p>© 2024 あしナビ</p>
+        <p className='bg-gray-700 text-white text-center p-4 fixed bottom-0 w-full'>© 2024 あしナビ</p>
       </footer>
     </>
   );
