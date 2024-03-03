@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
+import 'tailwindcss/tailwind.css';
 
 const days = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -139,7 +140,7 @@ export default function Home() {
     const ashi_tate_time = NextArrivalTime(ashi_tate, time);
 
     return (
-      <div>
+      <>
         <h2>
           {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}(
           {days[today.getDay()]}) {time.toLocaleTimeString()}
@@ -153,23 +154,26 @@ export default function Home() {
         <h2>足利市駅発</h2>
         <h3>伊勢崎・太田方面：{ashi_ise_time}{ashi_ise_diff}</h3>
         <h3>館林・浅草方面：{ashi_tate_time}{ashi_tate_diff}</h3>
-      </div>
+      </>
     );
   };
 
   return (
-    <main>
-      <div>
-        <header>
-          <Link href="/">あしナビ</Link>
-          <Link href="/search">シラバス検索</Link>
-          <Link href="/about">あしナビの使い方</Link>
-        </header>
+    <>
+      <header>
+        <Link href="/">あしナビ</Link>
+        <Link href="/search">シラバス検索</Link>
+        <Link href="/about">あしナビの使い方</Link>
+      </header>
+      <>
         <a href="https://aug.manaba.jp/ct/home">manaba</a>
         <a href="https://aitaasv.ashitech.ac.jp/aaa_web/cl0010.aspx">AAA</a>
         <Clock />
         <a href="https://www.ashitech.ac.jp/access/bus-index.html">バス時刻表</a>
-      </div>
-    </main>
+      </>
+      <footer>
+        <p>© 2024 あしナビ</p>
+      </footer>
+    </>
   );
 }
