@@ -13,7 +13,7 @@ export default function About() {
             <Link href="/about">あしナビの使い方</Link>
           </div>
         </header>
-        <main className='flex-grow min-h-screen pb-16 pt-16'>
+        <main className='flex-grow min-h-screen pb-14 pt-16'>
           <h1>あしナビの使い方</h1>
           <h2>シラバス検索</h2>
             <p>非公式のシラバス検索です。</p>
@@ -22,7 +22,7 @@ export default function About() {
             <p>あしナビに関する問い合わせは管理者X(旧Twitter)までご連絡ください</p>
         </main>
         <footer>
-          <p className='bg-gray-700 text-white text-center p-4 fixed bottom-0 w-full'>© 2024 あしナビ</p>
+          <p className='bg-gray-700 text-white text-center p-2 fixed bottom-0 w-full'>© 2024 あしナビ</p>
         </footer>
       </>
     );
