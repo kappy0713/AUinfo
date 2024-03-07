@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import 'tailwindcss/tailwind.css';
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function About() {
     return (
@@ -14,12 +15,18 @@ export default function About() {
           </div>
         </header>
         <main className='flex-grow min-h-screen pb-14 pt-16'>
-          <h1>あしナビの使い方</h1>
-          <h2>シラバス検索</h2>
-            <p>非公式のシラバス検索です。</p>
-            <p>「数学」や「物理」などの曖昧なワードでの検索も可能になっています</p>
-          <h2>問い合わせ</h2>
-            <p>あしナビに関する問い合わせは管理者X(旧Twitter)までご連絡ください</p>
+          <h1 className='text-4xl m-2'>あしナビの使い方</h1>
+          <p className='text-xl m-2'>あしナビは大学の情報をインフラ情報をまとめたWebアプリケーションです。本サイトをブックマークして教育支援システムや時刻表のショートカットにお使いください</p>
+          <h2 className='text-3xl m-2'>時刻表</h2>
+            <p className='text-xl m-2'>バスと山前駅・足利市駅の時刻表をまとめています</p>
+            <p className='text-xl m-2'>発着までの時間が一目で分かるようにしています</p>
+            <p className='text-xl m-2'>※駅の時刻表は遅延には一切対応していませんので注意してください※</p>
+          <h2 className='text-3xl m-2'>シラバス検索</h2>
+            <p className='text-xl m-2'>非公式のシラバス検索です。</p>
+            <p className='text-xl m-2'>「数学」や「物理」などの曖昧なワードでの検索も可能になっています</p>
+          <h2 className='text-3xl m-2'>問い合わせ</h2>
+            <p className='text-xl m-2'>あしナビに関する問い合わせは管理者X(旧Twitter)までご連絡ください</p>
+            <a href='https://twitter.com/syunsuke__03' target='_blank'><FaXTwitter className='w-8 h-8'/></a>
         </main>
         <footer>
           <p className='bg-gray-700 text-white text-center p-2 fixed bottom-0 w-full'>© 2024 あしナビ</p>

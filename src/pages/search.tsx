@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React,{useEffect, useState} from 'react';
+import React,{ useState, useEffect } from 'react';
 import subjects from './subjects';
 import 'tailwindcss/tailwind.css';
 import {flexRender,getCoreRowModel,useReactTable,} from '@tanstack/react-table';
@@ -104,7 +104,7 @@ export default function Search() {
           ))}
         </tbody>
       </table>
-        <a href="https://aitaasv.ashitech.ac.jp/aaa_web/syllabus/se0010.aspx?me=EU&opi=mt0010">公式シラバス</a>
+        <a href="https://aitaasv.ashitech.ac.jp/aaa_web/syllabus/se0010.aspx?me=EU&opi=mt0010" target='_blank'>公式シラバス</a>
       </main>
       <footer className='bg-gray-700 text-white text-center p-2 fixed bottom-0 w-full'>
         <p>© 2024 あしナビ</p>
