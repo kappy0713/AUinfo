@@ -82,7 +82,7 @@ export default function Search() {
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className="border border-gray-400 p-2">
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
@@ -96,7 +96,7 @@ export default function Search() {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} className="border border-gray-400 p-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
