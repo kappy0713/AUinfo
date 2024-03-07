@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import subjects from './subjects';
 import 'tailwindcss/tailwind.css';
 
@@ -13,8 +13,8 @@ type subject = {
 }
 
 export default function Search() {
-  const [query, setQuery] = React.useState<string>('');
-  const [results, setResults] = React.useState<subject[]>([]);
+  const [query, setQuery] = useState<string>('');
+  const [results, setResults] = useState<subject[]>([]);
 
   useEffect(() => {
     setResults(subjects);
