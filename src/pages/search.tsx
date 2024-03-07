@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import React from 'react';
+import React,{useEffect} from 'react';
 import subjects from './subjects';
 import 'tailwindcss/tailwind.css';
 
-interface subject {
+type subject = {
   name: string;
   term: string;
   num: number;
@@ -15,6 +15,10 @@ interface subject {
 export default function Search() {
   const [query, setQuery] = React.useState<string>('');
   const [results, setResults] = React.useState<subject[]>([]);
+
+  useEffect(() => {
+    setResults(subjects);
+  }, []);
 
   const handleSearch = () => {
     const filteredResults = subjects.filter(item =>
