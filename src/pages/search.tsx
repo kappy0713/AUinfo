@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React,{ useState, useEffect } from 'react';
-import subjects from './subjects';
+import subjects from '../../subjects';
 import 'tailwindcss/tailwind.css';
 import {flexRender,getCoreRowModel,useReactTable,} from '@tanstack/react-table';
 
