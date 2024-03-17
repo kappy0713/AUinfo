@@ -4,7 +4,7 @@ import subjects from '../../subjects';
 import 'tailwindcss/tailwind.css';
 import {flexRender,getCoreRowModel,useReactTable,} from '@tanstack/react-table';
 
-type subject = {
+type Subject = {
   name: string;
   term: string;
   num: number;
@@ -12,12 +12,16 @@ type subject = {
   teacher: string;
   group: string;
 }
+type Column ={
+  accessorKey: keyof Subject;
+  header: string;
+};
 
 export default function Search() {
   const [query, setQuery] = useState<string>('');
-  const [results, setResults] = useState<subject[]>([]);
+  const [results, setResults] = useState<Subject[]>([]);
 
-  const columns = [
+  const columns: Column[] = [
     {
       accessorKey: 'name',
       header: '科目名'
@@ -55,7 +59,7 @@ export default function Search() {
   }, []);
 
   const handleSearch = () => {
-    const filteredResults = subjects.filter(item =>
+    const filteredResults: Subject[] = subjects.filter(item =>
       item.name.toLowerCase().includes(query.toLowerCase())
     );
     setResults(filteredResults);

@@ -124,7 +124,7 @@ export default function Home() {
         if (hours === 0) {
           timeDiff = `(${Min}:${Sec}後)`;
         } else {
-          timeDiff = `(${Hours}:${Min}${Sec}後)`;
+          timeDiff = `(${Hours}:${Min}:${Sec}後)`;
         }
       }
       return timeDiff;
