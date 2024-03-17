@@ -76,6 +76,28 @@ export default function Home() {
       ashi_tate = ashi_tate_schedule;
     }
 
+    // バスの時刻表ハンドラー
+    const [BusOption, setBusOption] = useState('au');
+
+    const BusChange = (event) => {
+      setBusOption(event.target.value);
+    };
+
+    // 電車の時刻表ハンドラー
+    // 山前駅発
+    const [yama_TrainOption, yama_setTrainOptinon] = useState('taka')
+
+    const yama_TrainChange = (event) => {
+      yama_setTrainOptinon(event.target.value);
+    }
+
+    // 足利市駅発
+    const [ashi_TrainOption, ashi_setTrainOptinon] = useState('ise')
+
+    const ashi_TrainChange = (event) => {
+      ashi_setTrainOptinon(event.target.value);
+    }
+
     // 次のバス・電車までの時間を計算
     function NextTime(Schedule, time) {
       const nextTime = Schedule.find((Time) => {
@@ -85,7 +107,7 @@ export default function Home() {
         return currentDate > time;
       });
 
-      let timeDiff = '本日の運行は終了しました。';
+      let timeDiff = '本日の運行は終了';
 
       if (nextTime) {
         const [Hour, Minute] = nextTime.split(':').map(Number);
@@ -95,16 +117,20 @@ export default function Home() {
         const hours = Math.floor(diffSeconds / 3600);
         const minutes = Math.floor((diffSeconds % 3600) / 60);
         const seconds = diffSeconds % 60;
+
+        const Hours = String(hours).padStart(2, '0');
+        const Min = String(minutes).padStart(2, '0');
+        const Sec = String(seconds).padStart(2, '0');
         if (hours === 0) {
-          timeDiff = `(${minutes}分${seconds}秒後)`;
+          timeDiff = `(${Min}:${Sec}後)`;
         } else {
-          timeDiff = `(${hours}時間${minutes}分${seconds}秒後)`;
+          timeDiff = `(${Hours}:${Min}${Sec}後)`;
         }
       }
       return timeDiff;
     }
 
-    // const au_yama_diff = NextTime(au_yama_schedule, time);
+    // それぞれの次の便の時刻
     const au_ashi_diff = NextTime(au_ashi_schedule, time);
     const yama_au_diff = NextTime(yama_au_schedule, time);
     const ashi_au_diff = NextTime(ashi_au_schedule, time);
@@ -129,7 +155,7 @@ export default function Home() {
         return '';
       }
     }
-    // const au_yama_time = NextArrivalTime(au_yama_schedule, time);
+    // それぞれの次の便の時刻差分
     const au_ashi_time = NextArrivalTime(au_ashi_schedule, time);
     const yama_au_time = NextArrivalTime(yama_au_schedule, time);
     const ashi_au_time = NextArrivalTime(ashi_au_schedule, time);
@@ -141,19 +167,47 @@ export default function Home() {
 
     return (
       <>
+        {/*
         <h2>
           {today.getFullYear()}/{today.getMonth() + 1}/{today.getDate()}(
           {days[today.getDay()]}) {time.toLocaleTimeString()}
         </h2>
-        <h3>足利大学発：{au_ashi_time}{au_ashi_diff}</h3>
-        <h3>山前駅発：{yama_au_time}{yama_au_diff}</h3>
-        <h3>足利市駅発：{ashi_au_time}{ashi_au_diff}</h3>
-        <h2>山前駅発</h2>
-        <h3>高崎・桐生方面：{yama_taka_time}{yama_taka_diff}</h3>
-        <h3>小山・足利方面：{yama_oya_time}{yama_oya_diff}</h3>
-        <h2>足利市駅発</h2>
-        <h3>伊勢崎・太田方面：{ashi_ise_time}{ashi_ise_diff}</h3>
-        <h3>館林・浅草方面：{ashi_tate_time}{ashi_tate_diff}</h3>
+        */}
+        <h1 className='text-3xl m-2'>時刻表</h1>
+        <h2 className="text-2xl underline">バス</h2>
+        <div>
+          <select value={BusOption} onChange={BusChange} className='border-2 border-gray-600 rounded-md'>
+            <option value="au">足利大学発</option>
+            <option value="yama">山前駅発</option>
+            <option value="ashi">足利市駅発</option>
+          </select>
+
+          {BusOption === 'au' && <h3 className='text-2xl'>{au_ashi_time}{au_ashi_diff}</h3>}
+          {BusOption === 'yama' && <h3 className='text-2xl'>{yama_au_time}{yama_au_diff}</h3>}
+          {BusOption === 'ashi' && <h3 className='text-2xl'>{ashi_au_time}{ashi_au_diff}</h3>}
+        </div>
+        <h2 className="text-2xl underline">電車</h2>
+        <h2 className='text-2xl'>山前駅発</h2>
+        <div>
+          <select value={yama_TrainOption} onChange={yama_TrainChange} className='border-2 border-gray-600 rounded-md'>
+            <option value="taka">高崎・桐生方面</option>
+            <option value="oya">小山・足利方面</option>
+          </select>
+
+          {yama_TrainOption === 'taka' && <h3 className='text-2xl'>{yama_taka_time}{yama_taka_diff}</h3>}
+          {yama_TrainOption === 'oya' && <h3 className='text-2xl'>{yama_oya_time}{yama_oya_diff}</h3>}
+        </div>
+        <h2 className='text-2xl'>足利市駅発</h2>
+        <div>
+          <select value={ashi_TrainOption} onChange={ashi_TrainChange} className='border-2 border-gray-600 rounded-md'>
+            <option value="ise">伊勢崎・太田方面</option>
+            <option value="tate">館林・浅草方面</option>
+          </select>
+
+          {ashi_TrainOption === 'ise' && <h3 className='text-2xl'>{ashi_ise_time}{ashi_ise_diff}</h3>}
+          {ashi_TrainOption === 'tate' && <h3 className='text-2xl'>{ashi_tate_time}{ashi_tate_diff}</h3>}
+        </div>
+        <a href="https://www.ashitech.ac.jp/access/bus-index.html" target='_blank' className='text-xl underline hover:text-blue-500'>バス時刻表</a>
       </>
     );
   };
@@ -169,11 +223,15 @@ export default function Home() {
           <Link href="/about">あしナビの使い方</Link>
         </div>
       </header>
-      <main className='flex-grow min-h-screen pb-14 pt-16'>
-        <a href="https://aug.manaba.jp/ct/home" target='_blank'>manaba</a>
-        <a href="https://aitaasv.ashitech.ac.jp/aaa_web/cl0010.aspx" target='_blank'>AAA</a>
-        <Clock />
-        <a href="https://www.ashitech.ac.jp/access/bus-index.html">バス時刻表</a>
+      <main className='flex flex-col sm:flex-row flex-grow min-h-screen pb-14 pt-16'>
+        <div className='flex-grow'>
+          <h1 className='text-3xl m-2 sm:w-1/2'>教育支援システム</h1>
+          <a href="https://aug.manaba.jp/ct/home" target='_blank' className='flex justify-center items-center'><img src="/images/manaba.jpg" alt="manaba" className=""/></a>
+          <a href="https://aitaasv.ashitech.ac.jp/aaa_web/cl0010.aspx" target='_blank' className='flex justify-center items-center'><img src="/images/aaa.jpg" alt="AAA" /></a>
+        </div>
+        <div className='flex-grow sm:w-1/2'>
+          <Clock />
+        </div>
       </main>
       <footer>
         <p className='bg-gray-700 text-white text-center p-2 fixed bottom-0 w-full'>© 2024 あしナビ</p>
