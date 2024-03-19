@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React,{ useState, useEffect } from 'react';
 import subjects from '../../subjects';
 import 'tailwindcss/tailwind.css';
-import {flexRender,getCoreRowModel,useReactTable,} from '@tanstack/react-table';
+import {flexRender, getCoreRowModel, useReactTable, getFilteredRowModel, getSortedRowModel, ColumnDef} from '@tanstack/react-table';
 
 type Subject = {
   name: string;
@@ -17,6 +17,32 @@ type Column ={
   header: string;
 };
 
+const filter = (row, columnId, value) => {
+  return String(row.getValue(columnId)).indexOf(value) !== -1;
+}
+
+const InputSearch = ({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}) => {
+  const [value, setValue] = useState(initialValue)
+
+  useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => onChange(value), debounce);
+    return () => clearTimeout(timeout)
+  }, [value])
+
+  return (
+    <input {...props} value={value} onChange={e => setValue(e.target.value)} />
+  )
+}
+
 export default function Search() {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<Subject[]>([]);
@@ -24,46 +50,49 @@ export default function Search() {
   const columns: Column[] = [
     {
       accessorKey: 'name',
-      header: '科目名'
+      header: '科目名',
     },
     {
       accessorKey: 'term',
-      header: '開講期間'
+      header: '開講期間',
     },
     {
       accessorKey: 'num',
-      header: '単位数'
+      header: '単位数',
     },
     {
       accessorKey: 'year',
-      header: '学年'
+      header: '学年',
     },
     {
       accessorKey: 'teacher',
-      header: '担当教員'
+      header: '担当教員',
     },
     {
       accessorKey: 'group',
-      header: '科目群'
-    }
+      header: '科目群',
+    },
   ];
+
+  const [globalFilter, setGlobalFilter] = useState<string>('')
 
   const table = useReactTable({
     data: subjects,
     columns,
+    state: {
+      globalFilter,
+    },
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: filter,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   useEffect(() => {
     setResults(subjects);
   }, []);
 
-  const handleSearch = () => {
-    const filteredResults: Subject[] = subjects.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setResults(filteredResults);
-  };
 
 
   return (
@@ -73,14 +102,18 @@ export default function Search() {
           <Link href="/">あしナビ</Link>
         </div>  
         <div>
-          <Link href="/search">シラバス検索</Link>
+          <Link href="/search">シラバス検索　</Link>
           <Link href="/about">あしナビの使い方</Link>
         </div>     
       </header>
       <main className='flex-grow min-h-screen pb-14 pt-16'>
         <h1>シラバス検索(2023年度版)</h1>
-        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 font-sans"/>
-        <button onClick={handleSearch}>検索</button>
+        <InputSearch
+          value={globalFilter ?? ''}
+          onChange={value => setGlobalFilter(String(value))}
+          className="w-100 p-2 font-lg shadow border border-block"
+          placeholder="検索"
+        />
         <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

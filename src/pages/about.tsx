@@ -10,13 +10,13 @@ export default function About() {
             <Link href="/">あしナビ</Link>
           </div>
           <div>
-            <Link href="/search">シラバス検索</Link>
+            <Link href="/search">シラバス検索　</Link>
             <Link href="/about">あしナビの使い方</Link>
           </div>
         </header>
         <main className='flex-grow min-h-screen pb-14 pt-16'>
           <h1 className='text-4xl m-2'>あしナビの使い方</h1>
-          <p className='text-xl m-2'>あしナビは大学の情報をインフラ情報をまとめたWebアプリケーションです。本サイトをブックマークして教育支援システムや時刻表のショートカットにお使いください</p>
+          <p className='text-xl m-2'>あしナビは足利大学の関連情報をまとめたWebアプリケーションです。本サイトをブックマークして教育支援システムや時刻表のショートカットにお使いください</p>
           <h2 className='text-3xl m-2'>時刻表</h2>
             <p className='text-xl m-2'>バスと山前駅・足利市駅の時刻表をまとめています</p>
             <p className='text-xl m-2'>発着までの時間が一目で分かるようにしています</p>

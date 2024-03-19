@@ -219,7 +219,7 @@ export default function Home() {
           <Link href="/">あしナビ</Link>
         </div>
         <div>
-          <Link href="/search">シラバス検索</Link>
+          <Link href="/search">シラバス検索　</Link>
           <Link href="/about">あしナビの使い方</Link>
         </div>
       </header>
