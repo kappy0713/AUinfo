@@ -5,16 +5,16 @@ import 'tailwindcss/tailwind.css';
 
 const days = ['日', '月', '火', '水', '木', '金', '土'];
 
-// バスの時刻表 2/5~3/15
+// バスの時刻表 4/3~
 // 足利大学発(山前駅)
 // const au_yama_schedule = ['10:25', '11:15', '11:55', '13:00', '15:25', '16:25', '17:05', '18:00'];
 // 足利大学発(足利市駅)
-const au_ashi_schedule = ['10:25', '11:15', '11:55', '13:00', '15:25', '16:25', '17:05', '18:00'];
+const au_ashi_schedule = ['08:00', '09:40', '10:45', '11:25', '12:25', '13:25', '14:45', '15:25', '16:25', '18:00', '19:10'];
 
 // 山前駅発
-const yama_au_schedule = ['08:41', '09:44', '11:06', '11:56', '12:36', '13:41', '16:06'];
+const yama_au_schedule = ['08:13', '08:30', '08:41', '09:21', '09:59', '10:21', '11:26', '12:18', '13:16', '14:16', '15:27', '16:08', '17:08'];
 // 足利市駅発
-const ashi_au_schedule = ['08:25', '09:28', '10:50', '11:40', '12:20', '13:25', '15:50'];
+const ashi_au_schedule = ['08:25', '09:05', '09:43', '10:05', '11:10', '12:02', '13:00', '14:00', '15:11', '15:52', '16:52'];
 
 
 // 電車の時刻表
@@ -174,8 +174,8 @@ export default function Home() {
         </h2>
         */}
         <h1 className='text-3xl m-2'>時刻表</h1>
-        <h2 className="text-2xl underline">バス</h2>
-        <div>
+        <h2 className="text-2xl underline m-2">バス</h2>
+        <div className="pl-2">
           <select value={BusOption} onChange={BusChange} className='border-2 border-gray-600 rounded-md'>
             <option value="au">足利大学発</option>
             <option value="yama">山前駅発</option>
@@ -186,9 +186,9 @@ export default function Home() {
           {BusOption === 'yama' && <h3 className='text-2xl'>{yama_au_time}{yama_au_diff}</h3>}
           {BusOption === 'ashi' && <h3 className='text-2xl'>{ashi_au_time}{ashi_au_diff}</h3>}
         </div>
-        <h2 className="text-2xl underline">電車</h2>
-        <h2 className='text-2xl'>山前駅発</h2>
-        <div>
+        <h2 className="text-2xl underline pl-2">電車</h2>
+        <h2 className='text-2xl pl-2'>山前駅発</h2>
+        <div className="pl-2">
           <select value={yama_TrainOption} onChange={yama_TrainChange} className='border-2 border-gray-600 rounded-md'>
             <option value="taka">高崎・桐生方面</option>
             <option value="oya">小山・足利方面</option>
@@ -197,8 +197,8 @@ export default function Home() {
           {yama_TrainOption === 'taka' && <h3 className='text-2xl'>{yama_taka_time}{yama_taka_diff}</h3>}
           {yama_TrainOption === 'oya' && <h3 className='text-2xl'>{yama_oya_time}{yama_oya_diff}</h3>}
         </div>
-        <h2 className='text-2xl'>足利市駅発</h2>
-        <div>
+        <h2 className='text-2xl pl-2'>足利市駅発</h2>
+        <div className="pl-2">
           <select value={ashi_TrainOption} onChange={ashi_TrainChange} className='border-2 border-gray-600 rounded-md'>
             <option value="ise">伊勢崎・太田方面</option>
             <option value="tate">館林・浅草方面</option>
@@ -207,7 +207,7 @@ export default function Home() {
           {ashi_TrainOption === 'ise' && <h3 className='text-2xl'>{ashi_ise_time}{ashi_ise_diff}</h3>}
           {ashi_TrainOption === 'tate' && <h3 className='text-2xl'>{ashi_tate_time}{ashi_tate_diff}</h3>}
         </div>
-        <a href="https://www.ashitech.ac.jp/access/bus-index.html" target='_blank' className='text-xl underline hover:text-blue-500'>バス時刻表</a>
+        <a href="https://www.ashitech.ac.jp/access/bus-index.html" target='_blank' className='text-xl underline hover:text-blue-500 m-2'>バス時刻表</a>
       </>
     );
   };
