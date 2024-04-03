@@ -186,7 +186,7 @@ export default function Home() {
           {BusOption === 'yama' && <h3 className='text-2xl'>{yama_au_time}{yama_au_diff}</h3>}
           {BusOption === 'ashi' && <h3 className='text-2xl'>{ashi_au_time}{ashi_au_diff}</h3>}
         </div>
-        <h2 className="text-2xl underline pl-2">電車</h2>
+        <h2 className="text-2xl underline pl-2 pt-2">電車</h2>
         <h2 className='text-2xl pl-2'>山前駅発</h2>
         <div className="pl-2">
           <select value={yama_TrainOption} onChange={yama_TrainChange} className='border-2 border-gray-600 rounded-md'>
@@ -204,8 +204,8 @@ export default function Home() {
             <option value="tate">館林・浅草方面</option>
           </select>
 
-          {ashi_TrainOption === 'ise' && <h3 className='text-2xl'>{ashi_ise_time}{ashi_ise_diff}</h3>}
-          {ashi_TrainOption === 'tate' && <h3 className='text-2xl'>{ashi_tate_time}{ashi_tate_diff}</h3>}
+          {ashi_TrainOption === 'ise' && <h3 className='text-2xl pb-2'>{ashi_ise_time}{ashi_ise_diff}</h3>}
+          {ashi_TrainOption === 'tate' && <h3 className='text-2xl pb-2'>{ashi_tate_time}{ashi_tate_diff}</h3>}
         </div>
         <a href="https://www.ashitech.ac.jp/access/bus-index.html" target='_blank' className='text-xl underline hover:text-blue-500 m-2'>バス時刻表</a>
       </>
@@ -219,7 +219,7 @@ export default function Home() {
           <Link href="/">あしナビ</Link>
         </div>
         <div>
-          <Link href="/search">シラバス検索　</Link>
+          <Link href="/">シラバス検索　</Link>
           <Link href="/about">あしナビの使い方</Link>
         </div>
       </header>
