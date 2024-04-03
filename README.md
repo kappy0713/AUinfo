@@ -3,4 +3,4 @@
 ### 最寄り駅の時刻表や天気情報, 教育支援システムへのショートカットなど
 ### シラバス検索も可能
 
-https://ashinavi-ubaw.vercel.app/
+https://ashinavi.vercel.app/
